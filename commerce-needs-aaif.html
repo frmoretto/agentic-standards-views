@@ -91,6 +91,16 @@ table.sum th, table.sum td { text-align: left; vertical-align: top; padding: 10p
 table.sum th { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
 table.sum td:first-child { font-weight: 500; min-width: 180px; }
 table.sum td:nth-child(2) { white-space: nowrap; }
+@media (max-width: 640px) {
+  table.sum { min-width: 0; }
+  table.sum, table.sum tbody, table.sum tr, table.sum td { display: block; width: 100%; box-sizing: border-box; }
+  table.sum thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  table.sum tr { border: 1px solid var(--line); border-radius: 6px; margin: 0 0 12px; padding: 4px 12px; }
+  table.sum td { border-bottom: 0; padding: 6px 0; }
+  table.sum td:first-child { min-width: 0; border-bottom: 1px solid var(--line); }
+  table.sum td:nth-child(2) { white-space: normal; }
+  table.sum td:not(:first-child)::before { content: attr(data-label); display: block; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-bottom: 2px; }
+}
 .jump { font-size: 14px; color: var(--muted); }
 </style>
 
@@ -238,7 +248,7 @@ function renderOverall() {
 function renderSummary() {
   const el = document.getElementById("summary");
   el.innerHTML = `<h2>At a glance</h2><p class="meta">For each step of a purchase made by an agent: the AAIF group I would make primary, the secondary one, and the question the step should be tested against.</p>
-    <div class="tblwrap"><table class="sum"><thead><tr><th>Step</th><th>Primary</th><th>Secondary</th><th>What to test</th></tr></thead><tbody>${PATH.map((p, i) => `<tr><td><a href="#step-${i + 1}">${i + 1}. ${esc(p.q)}</a></td><td>${esc(p.roles.p.join(", "))}</td><td>${esc(p.roles.s.join(", "))}</td><td>${esc(p.test)}</td></tr>`).join("")}</tbody></table></div>
+    <div class="tblwrap"><table class="sum"><thead><tr><th>Step</th><th>Primary</th><th>Secondary</th><th>What to test</th></tr></thead><tbody>${PATH.map((p, i) => `<tr><td><a href="#step-${i + 1}">${i + 1}. ${esc(p.q)}</a></td><td data-label="Primary">${esc(p.roles.p.join(", "))}</td><td data-label="Secondary">${esc(p.roles.s.join(", "))}</td><td data-label="What to test">${esc(p.test)}</td></tr>`).join("")}</tbody></table></div>
     <p class="jump">Also asked of every group: <a href="#challenges">open challenges</a> · <a href="#web3">Web3 and the internet of agents</a> · evaluation questions are the “What to test” column, for the Accuracy and Reliability group.</p>`;
 }
 renderSummary(); renderCommerce(); renderOverall();
