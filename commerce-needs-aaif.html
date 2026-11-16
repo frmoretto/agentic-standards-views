@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>What agentic commerce needs from each AAIF group - Agentic Standards Map views</title>
+<meta name="description" content="For each step of a purchase made by an AI agent, which AAIF working group should own the question, what commerce needs from it and the public standards work that addresses it. Built on the Agentic Standards Map (DOI 10.5281/zenodo.23357361).">
+<link rel="canonical" href="https://frmoretto.github.io/agentic-standards-views/commerce-needs-aaif.html">
+<meta property="og:title" content="What agentic commerce needs from each AAIF group">
+<meta property="og:description" content="Two views of the same public sources: the steps of an agent purchase, and every source sorted by the AAIF group that should follow it.">
+<meta property="og:url" content="https://frmoretto.github.io/agentic-standards-views/commerce-needs-aaif.html">
+<meta property="og:type" content="article">
+<meta name="author" content="Francesco Marinoni Moretto">
+<style>body{margin:0}[hidden]{display:none!important}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column; two views of the same sources (purchase path, AAIF groups) switched by tabs */
+:root {
+  --bg: #f6f7f9; --surface: #ffffff; --fg: #17202b; --muted: #5a6573; --line: #dde2e8;
+  --accent: #1f6f78; --accent-soft: #e2f0f1; --chip: #eef1f5; --chip-fg: #26323f; --cand: #8a5a12; --cand-soft: #f7eddc;
+  --f-display: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --f-body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #12171d; --surface: #1a2129; --fg: #e6ebf0; --muted: #9aa6b3; --line: #2c3540;
+  --accent: #6cc3cb; --accent-soft: #1c3236; --chip: #232c36; --chip-fg: #d5dde5; --cand: #e3b56a; --cand-soft: #3a2f1c; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #12171d; --surface: #1a2129; --fg: #e6ebf0; --muted: #9aa6b3; --line: #2c3540;
+  --accent: #6cc3cb; --accent-soft: #1c3236; --chip: #232c36; --chip-fg: #d5dde5; --cand: #e3b56a; --cand-soft: #3a2f1c; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font-family: var(--f-body); font-size: 15px; line-height: 1.55; }
+.wrap { max-width: 980px; margin: 0 auto; padding-block: 32px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 28px; }
+header { display: grid; gap: 10px; }
+.eyebrow { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+h1 { font-family: var(--f-display); font-weight: 400; font-size: clamp(32px, 5vw, 46px); line-height: 1.08; margin: 0; text-wrap: balance; }
+h2 { font-family: var(--f-display); font-weight: 400; font-size: 27px; line-height: 1.15; margin: 0; text-wrap: balance; }
+h3 { font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 0; font-weight: 600; }
+p { margin: 0; max-width: 68ch; }
+.lede { font-size: 17px; color: var(--fg); }
+.meta { color: var(--muted); font-size: 13px; }
+a { color: var(--accent); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.tabs button { font: inherit; font-weight: 500; background: none; border: 0; border-bottom: 2px solid transparent; color: var(--muted); padding: 10px 14px; cursor: pointer; margin-bottom: -1px; }
+.tabs button[aria-selected="true"] { color: var(--fg); border-bottom-color: var(--accent); }
+.view { display: grid; gap: 18px; }
+.view[hidden] { display: none !important; }
+.intro { color: var(--muted); }
+.block { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 20px; display: grid; gap: 14px; min-width: 0; }
+.blockhead { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; align-items: baseline; }
+.step { font-family: var(--f-mono); font-size: 13px; color: var(--accent); }
+.owner { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 13px; }
+.owner .lbl { color: var(--muted); }
+.tag { background: var(--accent-soft); color: var(--fg); border-radius: 3px; padding: 2px 8px; font-weight: 500; }
+.seam { font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+@media (max-width: 720px) { .cols { grid-template-columns: 1fr; } }
+.cols > div { display: grid; gap: 8px; align-content: start; min-width: 0; }
+ul.needs { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { display: inline-flex; gap: 6px; align-items: baseline; background: var(--chip); color: var(--chip-fg); text-decoration: none; border-radius: 3px; padding: 3px 8px; font-size: 13px; max-width: 100%; }
+.chip:hover { outline: 1px solid var(--accent); }
+.chip .d { font-family: var(--f-mono); font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.chip.cand { background: var(--cand-soft); color: var(--fg); }
+.chip.cand .d { color: var(--cand); }
+details.status { font-size: 13px; color: var(--muted); }
+details.status summary { cursor: pointer; color: var(--accent); }
+details.status dl { display: grid; grid-template-columns: minmax(120px, 220px) 1fr; gap: 6px 14px; margin: 10px 0 0; }
+details.status dt { color: var(--fg); font-weight: 500; }
+details.status dd { margin: 0; }
+@media (max-width: 560px) { details.status dl { grid-template-columns: 1fr; } details.status dd { margin-bottom: 6px; } }
+.count { font-family: var(--f-mono); font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; color: var(--muted); align-items: center; }
+footer { border-top: 1px solid var(--line); padding-top: 18px; display: grid; gap: 10px; font-size: 13px; color: var(--muted); }
+footer p { max-width: 80ch; }
+</style>
+
+<style>
+.box { background: var(--accent-soft); border-radius: 6px; padding: 18px 20px; display: grid; gap: 10px; min-width: 0; }
+.test { border-left: 2px solid var(--accent); padding-left: 12px; font-size: 14px; }
+.test b { font-weight: 600; }
+.rp { display: inline-flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-right: 10px; }
+.proj { font-size: 13px; color: var(--muted); }
+.proj b { color: var(--fg); font-weight: 600; }
+ol.chal { margin: 0; padding-left: 20px; display: grid; gap: 8px; }
+ol.chal .who { color: var(--muted); font-size: 13px; }
+.tblwrap { overflow-x: auto; min-width: 0; }
+table.sum { border-collapse: collapse; width: 100%; min-width: 640px; font-size: 14px; }
+table.sum th, table.sum td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+table.sum th { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+table.sum td:first-child { font-weight: 500; min-width: 180px; }
+table.sum td:nth-child(2) { white-space: nowrap; }
+.jump { font-size: 14px; color: var(--muted); }
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">A view built on the Agentic Standards Map · 16 November 2026</div>
+    <h1>What agentic commerce needs from each AAIF group</h1>
+    <p class="lede">Two views of the same public sources. The commerce view follows a purchase made by an agent and says which group should own each question. The overall view sorts every source in the map by the AAIF group that should follow it. Prepared by Francesco Marinoni Moretto.</p>
+    <p class="meta">Sources: the <a href="https://frmoretto.github.io/agentic-standards-map/" target="_blank" rel="noopener">Agentic Standards Map</a> (version 1.5 and the corrections published on 2026-11-16, <a href="https://doi.org/10.5281/zenodo.23357361" target="_blank" rel="noopener">DOI 10.5281/zenodo.23357361</a>). Each chip links to its public entry and shows the date it was read. Which group should own which question is my reading, offered for correction; it is not a position of AAIF or of any of its working groups. The Agentic Standards Map itself ranks nothing and recommends nothing: this view is a separate reading built on its data.</p>
+  </header>
+
+  <section id="summary" class="block" aria-label="At a glance"></section>
+
+  <nav class="tabs" role="tablist" aria-label="Views">
+    <button role="tab" id="tab-commerce" aria-controls="commerce" aria-selected="true">Commerce view</button>
+    <button role="tab" id="tab-overall" aria-controls="overall" aria-selected="false">Overall view</button>
+  </nav>
+
+  <section class="view" id="commerce" role="tabpanel" aria-labelledby="tab-commerce"></section>
+  <section class="view" id="overall" role="tabpanel" aria-labelledby="tab-overall" hidden></section>
+
+  <footer>
+    <div class="legend"><span class="chip"><span>Entry in the map</span><span class="d">date read</span></span><span class="chip cand"><span>Candidate, not yet in the map</span><span class="d">public draft</span></span></div>
+    <p>The groups used here are a working frame by the author: Agentic Commerce, four cross-cutting areas (security and privacy with identity, observability and tracing, governance risk and compliance, taxonomy and landscape) and attestation and verification. They are not the structure of AAIF; see the <a href="https://github.com/aaif" target="_blank" rel="noopener">AAIF working group repositories</a> for that. "Primary, secondary, feedback" is the author's proposal of who leads, who contributes and who reviews. "Internet of agents" is not a group: it collects the protocols and discovery work no single group owns.</p>
+    <p>Limits: each status is as read on the date shown, not today. The map covers public sources only. Of the AAIF hosted projects, the map covers MCP and A2A; Agent Skills, OpenSandbox, OpenEnv, Goose, agentgateway and Agent Router are not covered. The "what to test" lines are questions for the Accuracy and Reliability group, not evaluation criteria. Disclosure: the author takes part in some of the work cited (UCP, IETF AUDIT and vCon among others); see the map's <a href="https://frmoretto.github.io/agentic-standards-map/disclosure.html" target="_blank" rel="noopener">disclosure page</a>.</p>
+    <p>Coming next: how each AAIF group works (where its work happens, cadence, how to raise an item), from the groups' public repositories and charters.</p>
+  </footer>
+</div>
+
+<script>
+const E = {"a2a-core": {"n": "Agent2Agent (A2A) protocol, core specification", "s": "Hosted project of the Agentic AI Foundation (AAIF): AAIF announced on 2026-08-17 that A2A \"is joining the Agentic AI Foundation (AAIF) as a hosted project\", and the A2A blog of 2026-08-27 says it \"has officially been accepted as a Growth Stage project\";…", "d": "2026-11-09", "seams": ["S1"]}, "a2a-discovery": {"n": "A2A protocol, agent discovery", "s": "A2A registers /.well-known/agent-card.json for a single AgentCard.", "d": "2026-10-23", "seams": ["S1"]}, "aaif-identity-trust": {"n": "AAIF Identity and Trust group, issue #13 and the agentrust-io integrations (TRACE)", "s": "Read 2026-10-19: issue #13 of aaif/wg-identity-and-trust, which compares how MintID and Proofable record authority at the point where an agent action is dispatched, was open with 18 comments, and on that day an independent operator from Bitgrit posted on…", "d": "2026-10-19", "seams": []}, "aaif-structure": {"n": "AAIF structure, Technical Committee and working groups", "s": "AAIF has a Governing Board, a Technical Committee and working groups, each with a repository; Agentic Commerce has its own entry.", "d": "2026-11-02", "seams": []}, "aaif-wg-agentic-commerce": {"n": "AAIF Agentic Commerce Working Group", "s": "Charter approved 2026-05-15; Capability Map being built from contributed inputs.", "d": "2026-10-13", "seams": ["S4"]}, "accord-project": {"n": "Accord Project (agreement layer for agentic commerce)", "s": "Open-source smart legal contract stack of Accord Project, a Series of LF Projects, LLC; its documentation page \"Agentic Commerce\" (no date on the page, last changed 2026-07-07 in the repository history, read 2026-10-15) describes it as the agreement layer…", "d": "2026-10-15", "seams": []}, "acp": {"n": "Agentic Commerce Protocol (ACP)", "s": "Specification in beta, maintained by OpenAI and Stripe; MAINTAINERS.md also lists Meta (PR #236 \"ADMIN: Add Meta as TSC member\", merged 2026-04-24).", "d": "2026-10-13", "seams": ["S2", "S3", "S4"]}, "anp": {"n": "Agent Network Protocol (ANP)", "s": "Specification set ANP 1.2, GitHub release v1.2 of 2026-09-24 (v1.1 of 2026-06-27, 1.0 of 2025-05-19); the README marks ANP-02, ANP-03, ANP-04, ANP-07 and ANP-08 \"Released v1.2\", the Messaging 1.2 catalog as published with profile P6 \"candidate\", and…", "d": "2026-10-16", "seams": []}, "ap2": {"n": "Agent Payments Protocol (AP2)", "s": "Open protocol in the GitHub organisation google-agentic-commerce (Apache-2.0); latest release v0.2.0 of 2026-04-28, which \"focuses on providing Human Not Present flows\"; core specification donated to FIDO. Google announced the donation on 2026-04-28…", "d": "2026-10-13", "seams": ["S4"]}, "ard": {"n": "Agentic Resource Discovery (ARD)", "s": "Specification v0.91 on main (header \"Status: Proposal\", dated 2026-08-26; header unchanged and last change to spec/ard.md on 2026-10-12, read 2026-10-13); no tag or release in ard-spec (not found, 2026-10-13); Maintainers decide by majority vote; an…", "d": "2026-11-09", "seams": ["S1"]}, "browsers-webmcp": {"n": "Browser vendor positions on WebMCP (WebKit, Mozilla, Chrome, Edge)", "s": "WebKit position issue #670 closed 2026-06-11 as \"position: oppose\"; Mozilla #1412 closed 2026-08-05 as \"position: neutral\".", "d": "2026-10-13", "seams": ["S3", "S4"]}, "cen-clc-jtc24-dpp": {"n": "CEN/CENELEC JTC 24 Digital Product Passport standards (EN 18216 to EN 18246)", "s": "Eight horizontal standards; six cited in the Official Journal of the EU according to the CEN-CENELEC page of 2026-07-15 (page re-read on 2026-10-13, unchanged); the two not cited are EN 18239 and EN 18246, and their status is not read.", "d": "2026-10-13", "seams": []}, "dif-trusted-ai-agents": {"n": "DIF Trusted AI Agents Working Group", "s": "Active; Delegated Authority and KYA-OS task forces; weekly meetings.", "d": "2026-10-13", "seams": []}, "emilia-protocol": {"n": "EMILIA Protocol (individual drafts and open-source gate)", "s": "Two individual Internet-Drafts by Iman Schrock (EMILIA Protocol, Inc.) were current on 2026-10-08: draft-schrock-ep-architecture-03 (2026-09-06, Informational) and draft-schrock-action-evidence-boundary-07 (2026-09-25, Informational).", "d": "2026-10-08", "seams": ["S4"]}, "emvco-agentic-payments-framework": {"n": "EMV Agentic Payments Framework for Specifications (draft for public feedback)", "s": "Draft published for feedback on 2026-09-01; the comment period ended on 2026-09-30.", "d": "2026-10-13", "seams": ["S4"]}, "fido-agentic-standards": {"n": "FIDO Alliance agentic authentication and payments work", "s": "Announced 2026-04-28: an Agentic Authentication Technical Working Group, and work in the Payments Technical Working Group starting from Google (AP2) and Mastercard (Verifiable Intent) contributions.", "d": "2026-10-14", "seams": ["S4"]}, "gs1-conformant-resolver": {"n": "GS1-Conformant Resolver Standard 1.2.1", "s": "Release 1.2.1 ratified August 2026 (standards page and PDF print no day); the archive page on ref.gs1.org lists \"Published 19 August 2026\".", "d": "2026-10-13", "seams": ["S2"]}, "gs1-digital-link": {"n": "GS1 Digital Link Standard, URI Syntax 1.7.0", "s": "Release 1.7.0 ratified August 2026; the archive on ref.gs1.org lists \"Published 7 August 2026\".", "d": "2026-10-13", "seams": ["S2"]}, "gs1-epcis": {"n": "GS1 EPCIS and Core Business Vocabulary (CBV)", "s": "The EPCIS archive on ref.gs1.org gives 2.0.1 as the latest version, published 2025-07-01, while the PDF served at /standards/epcis/2.0.1/ prints \"Release 2.0, Ratified, Jun 2022\" and does not contain the string 2.0.1.", "d": "2026-11-09", "seams": ["S2"]}, "gs1-web-vocabulary": {"n": "GS1 Web Vocabulary", "s": "Version 1.18: the ontology carries owl:versionInfo \"1.18\" and dct:modified 2026-06-01, and the archive on ref.gs1.org lists version 1.18.0 published 2026-06-01.", "d": "2026-11-09", "seams": ["S2"]}, "iab-tech-lab-aamp": {"n": "IAB Tech Lab AAMP 3.0 and OpenProposal (agentic advertising, draft)", "s": "IAB Tech Lab announced AAMP 3.0, \"the next major release of its Agentic Advertising Management Protocols framework\", on 2026-09-22, with the specification OpenProposal, announced for public comment \"until October 22, 2026\"; read 2026-11-16, the press…", "d": "2026-10-23", "seams": []}, "ieee-p3931-addr": {"n": "IEEE P3931 Agent Description, Discovery, and Registry (ADDR) Interoperability", "s": "PAR approved 2026-03-26; \"Draft Development\" on the IEEE SA active PARs page of the AI standards committee read on 2026-10-13.", "d": "2026-10-13", "seams": []}, "ietf-agentproto": {"n": "IETF agentproto (Agent Communication Protocols WG)", "s": "Working group in the Applications and Real-Time Area, formed on 2026-10-08 (IESG announcement; charter-ietf-agentproto-01 approved, chairs Orie Steele and Leslie Daigle), whose chairs wrote on 2026-10-12 that it had \"not yet established which draft should…", "d": "2026-11-09", "seams": ["S3"]}, "ietf-aipref": {"n": "IETF AI Preferences (aipref WG)", "s": "The vocabulary draft is at -08 (2026-09-13 in the datatracker history) and the attach draft was last seen at -05 (2026-08-19).", "d": "2026-10-13", "seams": []}, "ietf-audit": {"n": "IETF AUDIT (BoF preparation)", "s": "Birds of a Feather (BOF) stage, with no charter on the datatracker (group page, read 2026-10-23); the BoF is on the IETF 127 agenda on Tuesday 2026-11-17, 09:00 to 10:30 San Francisco time, and its agenda (agenda-127-audit-02, posted 2026-11-08, read…", "d": "2026-11-16", "seams": []}, "ietf-dawn": {"n": "IETF DAWN, Discovery of Agents With Names (working group)", "s": "The IESG approved the DAWN charter on 2026-10-22 and the Working Group (WG) is active: the datatracker group history of that day records \"Charter approved, group active\", and the group page lists the approved charter as charter-ietf-dawn-01, posted on…", "d": "2026-11-09", "seams": ["S1"]}, "ietf-dnsaid": {"n": "DNS for AI Discovery (DNS-AID, draft-mozleywilliams-dnsop-dnsaid)", "s": "Individual Internet-Draft, not adopted by a Working Group (WG): draft-mozleywilliams-dnsop-dnsaid-02 (2026-05-27) is marked \"Replaced\" on the datatracker by draft-mozleywilliams-dawn-dnsaid-00 (2026-11-02, Individual Submissions, no stream, expires…", "d": "2026-11-16", "seams": ["S1"]}, "ietf-httpauth-payment": {"n": "Payment HTTP Authentication Scheme (draft-httpauth-payment, Tempo Labs and Stripe)", "s": "Individual draft-httpauth-payment-01 (2026-09-09), Standards Track intended, no Working Group (WG), expires 2027-03-13; authors from Tempo Labs and Stripe.", "d": "2026-10-14", "seams": ["S4"]}, "ietf-individual-seller-drafts": {"n": "Individual IETF drafts on the seller side", "s": "Three individual Internet-Drafts on the seller side of agent transactions, none adopted by a Working Group (WG): anders merchant-identity-assertions -01, kavian offering-discovery-protocol -01, hood agtp-merchant-identity (-03, dated 30 October 2026,…", "d": "2026-11-02", "seams": []}, "ietf-vcon": {"n": "IETF vcon (Virtualized Conversations WG)", "s": "Active working group in the Applications and Real-Time Area under charter-ietf-vcon-01 (state Approved; on 2026-10-25 the datatracker shows no later revision of the charter and no event after the change of Area Director of 2026-03-18); its core draft,…", "d": "2026-11-09", "seams": ["S4"]}, "ietf-webbotauth": {"n": "IETF Web Bot Auth (webbotauth WG)", "s": "Active Working Group (WG) whose only WG draft is draft-ietf-webbotauth-httpsig-protocol, adopted on 2026-09-01, at revision -01 of 2026-10-29 (datatracker, read 2026-11-16).", "d": "2026-11-16", "seams": ["S3"]}, "ietf-wimse-aims": {"n": "IETF WIMSE, AI Identity Management System (draft-ietf-wimse-aims)", "s": "Working Group (WG) document draft-ietf-wimse-aims-01 (2026-11-02), expires 2027-05-06; Informational; adopted 2026-09-09; replaces draft-klrc-aiagent-auth.", "d": "2026-11-16", "seams": []}, "kyapay": {"n": "KYAPay (Skyfire)", "s": "Individual Internet-Drafts named for the OAuth Working Group (WG) (draft-skyfire-oauth-*); WG stream or adoption: not found on the datatracker, 2026-10-13 and again 2026-11-09 (kyapay-token and using-kyapay-tokens are listed under \"Individual Submissions\"…", "d": "2026-11-16", "seams": ["S3"]}, "lf-ai-catalog": {"n": "AI Catalog (Agent Card Working Group)", "s": "Pre-v1 specification in \"a temporary working repo maintained by the Linux Foundation\", governed by a Technical Steering Committee with four initial seats.", "d": "2026-11-09", "seams": ["S1", "S2"]}, "mastercard-agent-pay": {"n": "Mastercard Agent Pay", "s": "Commercial programme of Mastercard for agent-initiated payments, described on its framework page (read in a browser on 2026-10-14; first read 2026-10-02).", "d": "2026-10-14", "seams": ["S3"]}, "mcp-core": {"n": "Model Context Protocol (MCP), core specification", "s": "Specification version 2026-07-28 (the latest release is 2026-07-28; the specification directory holds 2024-11-05, 2025-03-26, 2025-06-18, 2025-11-25, 2026-07-28 and a draft; no later release, read 2026-10-13); the blog post of 2025-12-09 says \"Anthropic is…", "d": "2026-10-13", "seams": ["S1"]}, "mcp-server-card": {"n": "MCP Server Cards (ext-server-card, SEP-2127)", "s": "Experimental extension of MCP: the README of the extension repository still reads \"not an accepted or official MCP extension\" (2026-10-13).", "d": "2026-10-13", "seams": ["S1"]}, "oidf-authzen-agents": {"n": "OpenID Foundation AuthZEN Working Group (agent authorization drafts AARP and COAZ)", "s": "AARP and COAZ adopted as Working Group Drafts on 2026-06-15; to be refined through community review and interoperability testing.", "d": "2026-10-13", "seams": ["S3"]}, "pact": {"n": "Personal Agent Consent & Trust Protocol (PACT), published by Decagon with Instinct", "s": "Version 1.0 of the specification (\"This is PACT 1.0.\") is published at openpactprotocol.org (the Decagon announcement is dated 2026-10-06), and the repository openpactprotocol/openpactprotocol (created 2026-10-01, Apache-2.0) holds the documentation, a…", "d": "2026-10-13", "seams": ["S1", "S3", "S4"]}, "pap": {"n": "Personal Agent Protocol (PAP, \"Poppy\"), published by Sierra with Meta", "s": "Draft 0.1 of the specification is published at personalagentprotocol.org (announced 2026-10-06, draft published 2026-10-09; the pages read on 2026-10-13 are marked \"Updated Oct 12, 2026\"), under the Apache License 2.0 with the names and the logo excluded;…", "d": "2026-11-16", "seams": ["S1", "S3", "S4"]}, "schemaorg-baseline": {"n": "schema.org vocabulary for products, offers, sellers and lodging (current release)", "s": "Current release V30.1, 2026-09-16 (previous 30.0, 2026-03-19).", "d": "2026-10-13", "seams": ["S1", "S2"]}, "schemaorg-open-agent-commerce-items": {"n": "schema.org open issues relevant to agents, bookings, product and establishment identity", "s": "Issues #4824, #4786, #4828, #4774 and #4928 were open on 2026-10-13 (issue #4928, 1 comment, last activity 2026-10-08).", "d": "2026-10-13", "seams": ["S2"]}, "shopify": {"n": "Shopify, MCP surfaces for buyer agents, developers and merchants", "s": "Three distinct MCP surfaces are documented or published by Shopify: checkout for buyers' agents (server-side Checkout MCP and, since 2026-09-28, Checkout WebMCP), the local developer package @shopify/dev-mcp (latest version 1.16.0, 2026-09-25), and a…", "d": "2026-11-09", "seams": ["S1", "S4"]}, "trace": {"n": "TRACE (Trust, Runtime Attestation and Compliance Evidence)", "s": "Specification version 0.2 (\"0.2: Draft\", status \"RFC: Request for Comments\"), with a Python package, agentrust-trace 0.11.0 (2026-09-25), numbered apart; the README states that the specification is hosted at the Linux Foundation as \"TRACE Specification, a…", "d": "2026-10-21", "seams": []}, "ucp": {"n": "Universal Commerce Protocol (UCP)", "s": "Read 2026-11-09, as of Friday 2026-11-06.", "d": "2026-11-13", "seams": ["S1", "S2", "S3", "S4"]}, "un-gtr-urn": {"n": "UN Global Trust Register, namespace urn:gtr", "s": "Namespace \"IANA registration pending\" per the UN Transparency Protocol (UNTP) specification.", "d": "2026-10-13", "seams": ["S2"]}, "untp-identity-resolver": {"n": "UN Transparency Protocol, Identity Resolver", "s": "Latest stable version 0.7.0 (GitLab tag of 2026-05-04); the 0.7.0 page says the team \"expects to release UNTP version 1.0\", without a date.", "d": "2026-10-13", "seams": ["S2"]}, "verifiable-intent": {"n": "Verifiable Intent", "s": "Draft v0.1 specification, maintained by Mastercard according to its README (Apache-2.0, tag v0.1.0).", "d": "2026-10-13", "seams": ["S4"]}, "visa-tap": {"n": "Visa Trusted Agent Protocol (TAP)", "s": "Specification and sample code published by Visa under Visa Product Terms of October 10, 2025; the product page, read in a browser on 2026-10-14, still says \"This product is in the process of development and deployment.\"", "d": "2026-10-14", "seams": ["S3"]}, "w3c-agent-identity-registry-cg": {"n": "W3C Agent Identity Registry Protocol Community Group", "s": "Community group created 2026-04-24; calls every two weeks on Tuesdays at 15:00 UTC; the call of 2026-10-06 had an agenda on the list (message of 2026-10-01) and minutes of 22 September were posted on 2026-10-01; minutes of the call of 2026-10-06 and a…", "d": "2026-11-02", "seams": []}, "w3c-agent-ready-video-cg": {"n": "W3C Agent-Ready Video Community Group", "s": "Created 2026-10-01; chairs not yet selected: the W3C group data list no chair on 2026-10-13, and the group's list holds one message, the call for participation of 2026-10-01.", "d": "2026-10-13", "seams": []}, "w3c-agent-to-web-framework-cg": {"n": "W3C Agent-to-Web Framework (A2WF) Community Group", "s": "Community group created 2026-03-29; may publish Specifications; one chair is listed on the W3C group data on 2026-10-13, and the list public-a2wf has no October 2026 archive (HTTP 404 on the index).", "d": "2026-10-13", "seams": []}, "w3c-agenticweb-wg": {"n": "W3C Agentic Web Working Group (draft charter)", "s": "Draft charter for a proposed Working Group, in charter refinement: the announcement on public-new-work gave approx. 2026-11-10 as the end of refinement (W3C Team estimate), and the Strategy issue #576, open on 2026-10-23 with the label \"In Charter…", "d": "2026-11-13", "seams": ["S3"]}, "w3c-ai-agent-protocol-cg": {"n": "W3C AI Agent Protocol Community Group", "s": "Active Community Group (created 2025-05-08), whose agent identity is DID-method-agnostic (did:wba, did:web, did:webvh) since 2026-08-13, with bi-weekly meetings; a meeting was held on 2026-10-21 (minutes added to the repository on 2026-10-22).", "d": "2026-11-09", "seams": ["S1"]}, "w3c-browser-testing-tools-wg": {"n": "W3C Browser Testing and Tools Working Group", "s": "The Browser Testing and Tools Working Group has a new charter: the W3C charters page of the group lists it as \"Chartered under the Patent Policy 2025 from 2026-10-21 until 2028-10-20 (active)\", and the charter document gives \"Start date 20 October 2026\"…", "d": "2026-10-23", "seams": []}, "w3c-did-methods-wg": {"n": "W3C DID Methods Working Group", "s": "Charter approved on 2026-11-13: the follow-up on public-new-work says that \"W3C has approved the charter of the DID Methods Working Group today\", and the call for participation relayed on the group's list says \"The group is chartered through 3 November…", "d": "2026-11-16", "seams": []}, "w3c-did-resolution": {"n": "W3C DID Resolution", "s": "Candidate Recommendation Snapshot of 2026-08-06; Candidate Recommendation Drafts of 2026-11-09, 2026-11-10 and 2026-11-15 followed that of 2026-11-03 (publication history on api.w3.org, read 2026-11-16, under the shortname did-resolution-1.0); the draft of…", "d": "2026-11-13", "seams": ["S2"]}, "w3c-did-wg": {"n": "W3C Decentralized Identifier Working Group", "s": "Charter approved on 2026-11-16: the announcement relayed on public-new-work and on the group's list says that \"W3C has approved the charter of the Decentralized Identifier (DID) Working Group today\" and that \"The group is chartered through 16 November…", "d": "2026-11-16", "seams": []}, "w3c-digital-policy-wg": {"n": "W3C Digital Policy Working Group (ODRL, draft charter)", "s": "Draft charter in refinement until approx. 2026-11-02 (public-new-work, 2026-09-30); the TPAC session \"Proposed Digital Policy Working Group Charter\" of 2026-10-28 has draft minutes that record only links, no discussion.", "d": "2026-11-09", "seams": []}, "w3c-gs1-ecommerce-workshop": {"n": "W3C/GS1 Workshop on E-commerce for Humans and AI Agents (Zurich, 8-9 Sep 2026)", "s": "Workshop held 2026-09-08/09 at Google Zurich, co-organised by W3C and GS1.", "d": "2026-11-16", "seams": ["S2"]}, "w3c-tpac-2026": {"n": "W3C TPAC 2026 breakouts on agents (Dublin, 2026-10-26/30)", "s": "Technical Plenary and Advisory Committee (TPAC) 2026 took place from 2026-10-26 to 2026-10-30 in Dublin (hybrid).", "d": "2026-11-09", "seams": []}, "w3c-web-payment-security-ig": {"n": "W3C Web Payment Security Interest Group", "s": "Chartered 2025-04-01 to 2027-03-31 (shortname securepay); the draft Agentic Web charter lists the IG for \"agentic payments\".", "d": "2026-11-09", "seams": []}, "w3c-webmcp-cg-report": {"n": "WebMCP (Draft Community Group Report, Web Machine Learning CG)", "s": "Draft Community Group Report, dated 9 October 2026 on the page read on 2026-10-13 (2026-09-30 on 2026-10-03), no numbered version; on 2026-10-08 PR #338, \"Remove declarative API from spec\", was merged (the specification now focuses on the imperative…", "d": "2026-11-13", "seams": ["S3"]}, "x402": {"n": "x402", "s": "Open payment protocol under the x402 Foundation (Linux Foundation): intent announced 2026-04-02; operational launch and completed contribution by Coinbase announced 2026-07-14, with 40 member organisations at launch.", "d": "2026-11-09", "seams": ["S1", "S2", "S3", "S4"]}};
+const BASE = "https://frmoretto.github.io/agentic-standards-map/entries/";
+const SEAMS = { S1: "S1 Discovery layers", S2: "S2 Product and seller identity", S3: "S3 Agent identity and delegation", S4: "S4 Signed terms, authorisation and receipts" };
+const CAND = {
+  "capsule": { n: "Agent Action Capsule (draft-mih-scitt-agent-action-capsule)", d: "IETF -05, 2026-09-26", u: "https://datatracker.ietf.org/doc/draft-mih-scitt-agent-action-capsule/", s: "Individual draft proposed to SCITT: a signed record of each agent action, refusals and blocked actions included." },
+  "verification-state": { n: "draft-krausz-verification-state", d: "Capability Map issue #5", u: "https://datatracker.ietf.org/doc/draft-krausz-verification-state/", s: "Individual draft raised as a Capability Map input on cross-boundary evidence; distinguishes an inconclusive check from one that did not happen." },
+  "wag": { n: "Workload Authorization Grant (draft-carleton-workload-authz-grant)", d: "IETF -02, 2026-11-02", u: "https://datatracker.ietf.org/doc/html/draft-carleton-workload-authz-grant", s: "Individual Informational draft (Anthropic, OpenAI, Okta, Defakto Security, Ping Identity): an AI agent obtains tokens from a third party's authorization server without per-workload setup. Its scope is limited to workloads acting on their own behalf, so an agent buying for a person is outside it." }
+};
+const short = id => (E[id] ? E[id].n.replace(/\s*\(.*?\)\s*/g, " ").replace(/,.*$/, "").trim() : id);
+function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+function chip(id) {
+  if (CAND[id]) { const c = CAND[id]; return `<a class="chip cand" href="${c.u}" target="_blank" rel="noopener" title="${esc(c.s)}"><span>${esc(c.n.replace(/\s*\(.*\)/, ""))}</span><span class="d">${esc(c.d)}</span></a>`; }
+  const e = E[id]; if (!e) return "";
+  return `<a class="chip" href="${BASE}${id}.html" target="_blank" rel="noopener" title="${esc(e.s)}"><span>${esc(short(id))}</span><span class="d">${esc(e.d || "")}</span></a>`;
+}
+function statusList(ids) {
+  const rows = ids.map(id => {
+    const c = CAND[id]; if (c) return `<dt>${esc(c.n)}</dt><dd>${esc(c.s)} (${esc(c.d)})</dd>`;
+    const e = E[id]; if (!e) return ""; return `<dt>${esc(e.n)}</dt><dd>${esc(e.s)} <span class="count">read ${esc(e.d || "")}</span></dd>`;
+  }).join("");
+  return `<details class="status"><summary>Status of each source, one line</summary><dl>${rows}</dl></details>`;
+}
+
+const PATH = [
+  { q: "Find the merchant and the agent surface it offers", seam: "S1",
+    roles: { p: ["Agentic Commerce"], s: ["Internet of agents (no single owner)"], f: ["Taxonomy and landscape"] },
+    needs: ["One answer a merchant can give to “where do agents find me”: well-known files, agent and server cards, catalogs and DNS names exist side by side today.", "Shared names for card, catalog and registry, so the Capability Map and the taxonomy use the same words."],
+    test: "Starting from the merchant's domain alone, can an agent find every surface the merchant declares, and do the declarations agree with each other?",
+    proj: "MCP (Server Cards) and A2A (agent card discovery).",
+    ids: ["ard", "a2a-discovery", "mcp-server-card", "lf-ai-catalog", "ietf-dawn", "ietf-dnsaid", "ucp", "w3c-ai-agent-protocol-cg", "schemaorg-baseline"] },
+  { q: "Know what is sold, and by whom", seam: "S2",
+    roles: { p: ["Agentic Commerce"], s: ["Security and privacy (identity)"], f: ["Attestation and verification"] },
+    needs: ["Which product and seller identifiers an agent can rely on (GTIN and GS1 Digital Link, schema.org, UN trust registers, DIDs) and how each is resolved.", "Seller identity is identity work too: who checks that the business behind an endpoint is the one it claims to be."],
+    test: "Can an agent resolve a product identifier to its seller, and confirm that the seller controls the identifier it presents?",
+    proj: "None of the AAIF hosted projects covered by the map addresses this step.",
+    ids: ["gs1-digital-link", "gs1-conformant-resolver", "gs1-web-vocabulary", "schemaorg-open-agent-commerce-items", "untp-identity-resolver", "un-gtr-urn", "w3c-did-resolution", "ietf-individual-seller-drafts", "cen-clc-jtc24-dpp"] },
+  { q: "Know which agent is buying, and for whom", seam: "S3",
+    roles: { p: ["Security and privacy (identity)"], s: ["Agentic Commerce"], f: ["Governance, risk and compliance"] },
+    needs: ["A way for a merchant to tell which agent is calling and on whose behalf; several schemes overlap today (Web Bot Auth, Visa TAP, Mastercard Agent Pay, KYAPay).", "Delegation limits the merchant can read before checkout, and what buyer data the agent may pass on.", "Revocation: how a merchant learns, in time, that an agent's authority has been withdrawn.", "Workload grants that cover agents acting on their own behalf leave open the case of an agent buying for a person."],
+    test: "Before checkout, can the merchant verify which agent is calling, for whom, within which limits, and that this authority has not been revoked?",
+    proj: "MCP and A2A are in the map, but their own authentication and authorization schemes are not read there for this step.",
+    ids: ["ietf-webbotauth", "visa-tap", "mastercard-agent-pay", "kyapay", "oidf-authzen-agents", "ietf-wimse-aims", "wag", "ietf-agentproto", "aaif-identity-trust", "pact", "pap", "fido-agentic-standards", "w3c-agenticweb-wg"] },
+  { q: "Agree the terms, authorise and pay", seam: "S4",
+    roles: { p: ["Agentic Commerce"], s: ["Governance, risk and compliance"], f: ["Security and privacy (identity)"] },
+    needs: ["Where the buyer's consent and mandate live (AP2 mandates, Verifiable Intent, PACT), and what each party can prove later.", "Mapping legal duties to protocol fields once, for example the EU order-button and withdrawal rules, instead of each protocol inventing its own."],
+    test: "Afterwards, can each party show what the buyer agreed to, at which price and on which terms, in a form the other parties accept?",
+    proj: "MCP: checkout exposed as MCP tools (UCP binding, Shopify Checkout MCP).",
+    ids: ["ap2", "verifiable-intent", "acp", "ucp", "x402", "shopify", "emvco-agentic-payments-framework", "ietf-httpauth-payment", "accord-project", "w3c-digital-policy-wg", "ietf-aipref"] },
+  { q: "Keep the evidence: receipt, record, dispute", seam: "S4",
+    roles: { p: ["Observability and tracing"], s: ["Attestation and verification"], f: ["Governance, risk and compliance", "Agentic Commerce"] },
+    needs: ["A record of what the agent did and saw that buyer, merchant and payment network can each keep and check, refused actions included.", "A common way to say “not checked” versus “checked and failed”, so evidence from different systems can be compared."],
+    test: "Given a disputed order, can buyer, merchant and payment network each produce a record of what happened, refusals included, and do the records match?",
+    proj: "None of the AAIF hosted projects covered by the map addresses this step.",
+    ids: ["ietf-audit", "ietf-vcon", "trace", "emilia-protocol", "aaif-identity-trust", "capsule", "verification-state"] }
+];
+
+const GROUPS = [
+  { g: "Agentic Commerce", role: "Commerce-specific questions and the Capability Map; the specifications it takes as inputs.",
+    follow: ["The commerce protocols themselves (UCP, ACP, AP2, x402, card network programmes) and their releases.", "Product and seller data an agent reads: schema.org, GS1, UNTP.", "Commerce-side drafts at IETF and W3C that no other group owns."],
+    ids: ["aaif-wg-agentic-commerce", "ucp", "acp", "ap2", "x402", "verifiable-intent", "visa-tap", "mastercard-agent-pay", "kyapay", "pap", "pact", "shopify", "emvco-agentic-payments-framework", "ietf-httpauth-payment", "ietf-individual-seller-drafts", "schemaorg-baseline", "schemaorg-open-agent-commerce-items", "gs1-digital-link", "gs1-conformant-resolver", "gs1-web-vocabulary", "gs1-epcis", "untp-identity-resolver", "iab-tech-lab-aamp", "w3c-gs1-ecommerce-workshop", "w3c-web-payment-security-ig", "a2a-discovery", "ard"] },
+  { g: "Security and privacy, with identity", role: "Agent identity, delegation and revocation; seller identity; personal data passed by agents.",
+    follow: ["Agent authentication on the web and in APIs (Web Bot Auth, WIMSE, OAuth-based drafts, AuthZEN).", "Decentralised identifiers and their resolution (W3C DID groups, DIF).", "Agent identity registries and the identity work of other foundations (FIDO, W3C CGs)."],
+    ids: ["ietf-webbotauth", "ietf-wimse-aims", "wag", "oidf-authzen-agents", "kyapay", "visa-tap", "mastercard-agent-pay", "fido-agentic-standards", "aaif-identity-trust", "dif-trusted-ai-agents", "w3c-did-wg", "w3c-did-methods-wg", "w3c-did-resolution", "w3c-agent-identity-registry-cg", "w3c-ai-agent-protocol-cg", "w3c-agenticweb-wg", "ietf-agentproto", "browsers-webmcp", "ietf-aipref", "pap", "ietf-individual-seller-drafts", "w3c-web-payment-security-ig"] },
+  { g: "Observability and tracing", role: "Recording what agents did, in a form others can read later.",
+    follow: ["Audit and conversation record formats at the IETF (AUDIT, vCon).", "Runtime evidence formats and action-evidence drafts.", "Supply-chain event records that commerce evidence may need to point to (EPCIS)."],
+    ids: ["ietf-audit", "ietf-vcon", "trace", "emilia-protocol", "capsule", "gs1-epcis"] },
+  { g: "Governance, risk and compliance", role: "Consent, mandates, machine-readable policies and legal duties.",
+    follow: ["Mandate and consent formats (Verifiable Intent, AP2 mandates, PACT).", "Policy and agreement languages (ODRL at W3C, Accord Project).", "Regulated product data (EU Digital Product Passport standards) and usage preferences (AIPREF)."],
+    ids: ["verifiable-intent", "ap2", "pact", "accord-project", "w3c-digital-policy-wg", "cen-clc-jtc24-dpp", "ietf-aipref", "emvco-agentic-payments-framework"] },
+  { g: "Taxonomy and landscape", role: "Shared words and a shared picture.",
+    follow: ["The structure of AAIF and of the venues it overlaps with.", "Registries and description standards that define terms (IEEE P3931, schema.org, GS1 vocabulary).", "Events where the landscape is discussed (W3C/GS1 workshop, TPAC)."],
+    ids: ["aaif-structure", "ieee-p3931-addr", "schemaorg-baseline", "gs1-web-vocabulary", "w3c-gs1-ecommerce-workshop", "w3c-tpac-2026", "w3c-agenticweb-wg"] },
+  { g: "Attestation and verification", role: "Checking claims and records independently.",
+    follow: ["Independent reproduction of published results (the Identity and Trust comparison run).", "Signed action records and verification verdicts.", "Resolvers and trust registers that prove an identifier belongs to who claims it."],
+    ids: ["aaif-identity-trust", "trace", "emilia-protocol", "ietf-audit", "capsule", "verification-state", "w3c-did-resolution", "gs1-conformant-resolver", "untp-identity-resolver", "un-gtr-urn"] },
+  { g: "Internet of agents (no single owner)", role: "Protocols, discovery and web integration that every group depends on and none owns.",
+    follow: ["Agent-to-agent and agent-to-tool protocols (A2A, MCP, ANP, agentproto).", "Agent discovery and naming (DAWN, DNS-AID, AI Catalog, ARD).", "Web integration of agents (WebMCP, W3C groups, browser testing)."],
+    ids: ["a2a-core", "a2a-discovery", "mcp-core", "mcp-server-card", "anp", "ietf-agentproto", "ietf-dawn", "ietf-dnsaid", "lf-ai-catalog", "ard", "ieee-p3931-addr", "w3c-ai-agent-protocol-cg", "w3c-agent-to-web-framework-cg", "w3c-agent-ready-video-cg", "w3c-agenticweb-wg", "w3c-webmcp-cg-report", "w3c-browser-testing-tools-wg", "x402"] }
+];
+
+function roleLine(r) {
+  const part = (lbl, arr, cls) => arr.length ? `<span class="rp"><span class="lbl">${lbl}</span>${arr.map(o => cls ? `<span class="tag">${esc(o)}</span>` : `<span>${esc(o)}</span>`).join(", ")}</span>` : "";
+  return `${part("Primary:", r.p, true)}${part("Secondary:", r.s)}${part("Feedback:", r.f)}`;
+}
+function renderCommerce() {
+  const el = document.getElementById("commerce");
+  const chal = PATH.map(p => `<li>${esc(p.needs[0])} <span class="who">Primary: ${esc(p.roles.p.join(", "))}</span></li>`).join("");
+  el.innerHTML = `<p class="intro">Five questions a purchase made by an agent has to answer, in the order they come up. For each: which AAIF group should be primary, what commerce needs from it, what one should be able to test, and the public work that already addresses it.</p>` +
+    PATH.map((p, i) => `<article class="block" id="step-${i + 1}">
+      <div class="blockhead"><span class="step">${i + 1} / ${PATH.length}</span><h2>${esc(p.q)}</h2></div>
+      <div class="owner">${roleLine(p.roles)}<span class="seam">· ${esc(SEAMS[p.seam])}</span></div>
+      <div class="cols"><div><h3>What commerce needs</h3><ul class="needs">${p.needs.map(n => `<li>${esc(n)}</li>`).join("")}</ul></div>
+      <div><h3>Public work <span class="count">${p.ids.length}</span></h3><div class="chips">${p.ids.map(chip).join("")}</div></div></div>
+      <p class="test"><b>What to test</b> (question for Accuracy and Reliability): ${esc(p.test)}</p>
+      <p class="proj"><b>AAIF projects:</b> ${esc(p.proj)}</p>
+      ${statusList(p.ids)}
+    </article>`).join("") +
+    `<article class="box" id="challenges"><h2>Open challenges, as read in the map</h2><p class="meta">One line per step, for the cross-WG list of unsolved challenges. A reading of public sources, not yet discussed in the Agentic Commerce WG.</p><ol class="chal">${chal}</ol></article>`;
+}
+function renderOverall() {
+  const el = document.getElementById("overall");
+  const covered = new Set(GROUPS.flatMap(g => g.ids).filter(id => E[id]));
+  el.innerHTML = `<p class="intro">Every source in the map (${covered.size} of ${Object.keys(E).length} entries), sorted by the AAIF group that should follow it. Not limited to commerce; an entry can sit under more than one group.</p>` +
+    GROUPS.map(g => `<article class="block">
+      <div class="blockhead"><span class="count">${g.ids.length} sources</span><h2>${esc(g.g)}</h2></div>
+      <p class="meta">${esc(g.role)}</p>
+      <div class="cols"><div><h3>What this group should follow</h3><ul class="needs">${g.follow.map(n => `<li>${esc(n)}</li>`).join("")}</ul></div>
+      <div><h3>Public work</h3><div class="chips">${g.ids.map(chip).join("")}</div></div></div>
+      ${statusList(g.ids)}
+    </article>`).join("") +
+    `<article class="box" id="web3"><h2>Web3 in the map</h2><p>x402, an open payment protocol under the x402 Foundation (Linux Foundation), is the payment work closest to Web3 the map covers; W3C DIDs, their resolution and the DIF agents group cover decentralised identity, and the W3C AI Agent Protocol CG builds agent identity on DIDs. Anything else on Web3 is outside the map today.</p><div class="chips">${["x402", "w3c-did-resolution", "w3c-did-wg", "dif-trusted-ai-agents", "w3c-ai-agent-protocol-cg"].map(chip).join("")}</div></article>`;
+}
+function renderSummary() {
+  const el = document.getElementById("summary");
+  el.innerHTML = `<h2>At a glance</h2><p class="meta">For each step of a purchase made by an agent: the AAIF group I would make primary, the secondary one, and the question the step should be tested against.</p>
+    <div class="tblwrap"><table class="sum"><thead><tr><th>Step</th><th>Primary</th><th>Secondary</th><th>What to test</th></tr></thead><tbody>${PATH.map((p, i) => `<tr><td><a href="#step-${i + 1}">${i + 1}. ${esc(p.q)}</a></td><td>${esc(p.roles.p.join(", "))}</td><td>${esc(p.roles.s.join(", "))}</td><td>${esc(p.test)}</td></tr>`).join("")}</tbody></table></div>
+    <p class="jump">Also asked of every group: <a href="#challenges">open challenges</a> · <a href="#web3">Web3 and the internet of agents</a> · evaluation questions are the “What to test” column, for the Accuracy and Reliability group.</p>`;
+}
+renderSummary(); renderCommerce(); renderOverall();
+
+const tabs = { commerce: document.getElementById("tab-commerce"), overall: document.getElementById("tab-overall") };
+function show(name) {
+  if (!tabs[name]) name = "commerce";
+  for (const k in tabs) { const on = k === name; tabs[k].setAttribute("aria-selected", on); document.getElementById(k).hidden = !on; }
+}
+tabs.commerce.addEventListener("click", () => { location.hash = "commerce"; show("commerce"); });
+tabs.overall.addEventListener("click", () => { location.hash = "overall"; show("overall"); });
+const ALIAS = { challenges: "commerce", web3: "overall" };
+function route(h) {
+  let tab = h;
+  if (/^step-\d$/.test(h)) tab = "commerce";
+  if (ALIAS[h]) tab = ALIAS[h];
+  show(tab);
+  const t = document.getElementById(h);
+  if (t && !tabs[h]) t.scrollIntoView({ block: "start" });
+}
+window.addEventListener("hashchange", () => route(location.hash.slice(1)));
+route(location.hash.slice(1));
+</script>
+</body>
+</html>
