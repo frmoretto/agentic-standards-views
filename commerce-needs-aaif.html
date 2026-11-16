@@ -243,13 +243,14 @@ function renderOverall() {
       <div><h3>Public work</h3><div class="chips">${g.ids.map(chip).join("")}</div></div></div>
       ${statusList(g.ids)}
     </article>`).join("") +
+    `<article class="box" id="unowned"><h2>Unowned seam: stopping an agent</h2><p>Who can stop an agent, how fast, and what happens to the payments and credentials it has already obtained? The Security and Privacy WG recorded this on 10 November 2026 as a cross-WG seam with no owner, and named Identity and Trust, Security and Privacy, Accuracy and Reliability and the harness environment as possible homes (<a href="https://github.com/aaif/wg-security-and-privacy/blob/main/meeting-notes/2026-11-10.md" target="_blank" rel="noopener">public meeting notes</a>). Disclosure: the author took part in that discussion.</p><p>Public pieces already in the map:</p><ul class="needs"><li>IETF AUDIT, case 9: a denial on its own does not show whether a revocation was established or a status check did not complete.</li><li>Shopify: cancelling a spend request does not cancel the purchase or revoke a credential already issued.</li><li>Personal Agent Protocol, draft 0.1: the business can block or revoke an agent's client. Version 1.0, published on 2026-11-14, is not yet covered by the map.</li><li>AAIF Identity and Trust: one vendor's claim on revocation timing, recorded as an open proposal and not verified.</li></ul><p>My reading for commerce: the part no one answers yet is what happens to authority the agent has already used, such as a payment in flight or a credential handed to a merchant.</p><div class="chips">${["ietf-audit", "shopify", "pap", "aaif-identity-trust"].map(chip).join("")}</div></article>` +
     `<article class="box" id="web3"><h2>Web3 in the map</h2><p>x402, an open payment protocol under the x402 Foundation (Linux Foundation), is the payment work closest to Web3 the map covers; W3C DIDs, their resolution and the DIF agents group cover decentralised identity, and the W3C AI Agent Protocol CG builds agent identity on DIDs. Anything else on Web3 is outside the map today.</p><div class="chips">${["x402", "w3c-did-resolution", "w3c-did-wg", "dif-trusted-ai-agents", "w3c-ai-agent-protocol-cg"].map(chip).join("")}</div></article>`;
 }
 function renderSummary() {
   const el = document.getElementById("summary");
   el.innerHTML = `<h2>At a glance</h2><p class="meta">For each step of a purchase made by an agent: the AAIF group I would make primary, the secondary one, and the question the step should be tested against.</p>
     <div class="tblwrap"><table class="sum"><thead><tr><th>Step</th><th>Primary</th><th>Secondary</th><th>What to test</th></tr></thead><tbody>${PATH.map((p, i) => `<tr><td><a href="#step-${i + 1}">${i + 1}. ${esc(p.q)}</a></td><td data-label="Primary">${esc(p.roles.p.join(", "))}</td><td data-label="Secondary">${esc(p.roles.s.join(", "))}</td><td data-label="What to test">${esc(p.test)}</td></tr>`).join("")}</tbody></table></div>
-    <p class="jump">Also asked of every group: <a href="#challenges">open challenges</a> · <a href="#web3">Web3 and the internet of agents</a> · evaluation questions are the “What to test” column, for the Accuracy and Reliability group.</p>`;
+    <p class="jump">Also asked of every group: <a href="#challenges">open challenges</a> · <a href="#web3">Web3 and the internet of agents</a> · <a href="#unowned">unowned seam: stopping an agent</a> · evaluation questions are the “What to test” column, for the Accuracy and Reliability group.</p>`;
 }
 renderSummary(); renderCommerce(); renderOverall();
 
@@ -260,7 +261,7 @@ function show(name) {
 }
 tabs.commerce.addEventListener("click", () => { location.hash = "commerce"; show("commerce"); });
 tabs.overall.addEventListener("click", () => { location.hash = "overall"; show("overall"); });
-const ALIAS = { challenges: "commerce", web3: "overall" };
+const ALIAS = { challenges: "commerce", web3: "overall", unowned: "overall" };
 function route(h) {
   let tab = h;
   if (/^step-\d$/.test(h)) tab = "commerce";
